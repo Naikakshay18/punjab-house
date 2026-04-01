@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Punjab House – Authentic Punjabi Flavours</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #8B0000;
+    --orange: #F97316;
+    --cream: #FFF7ED;
+    --charcoal: #1F2937;
+    --gold: #D4A017;
+    --light-red: #C0392B;
+    --muted: #6B7280;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(139,0,0,0.97);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 1.1;
+  }
+  .logo span { color: var(--orange); }
+  .logo small { display: block; font-size: 0.55rem; letter-spacing: 3px; color: rgba(255,255,255,0.7); font-family: 'Rajdhani', sans-serif; text-transform: uppercase; font-weight: 500; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-cta {
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: #ea6c0a; transform: scale(1.04); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: #1a0000;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(249,115,22,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 10% 80%, rgba(139,0,0,0.5) 0%, transparent 60%),
+      url('https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=1600&q=80') center/cover no-repeat;
+    filter: brightness(0.38);
+  }
+  .hero-grain {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5; pointer-events: none;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 120px 24px 80px;
+    max-width: 820px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(249,115,22,0.2); border: 1px solid rgba(249,115,22,0.5);
+    color: var(--orange);
+    padding: 6px 18px; border-radius: 50px;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeDown 0.7s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.08;
+    margin-bottom: 20px;
+    animation: fadeDown 0.8s 0.15s ease both;
+  }
+  .hero-title span { color: var(--orange); }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 36px;
+    font-weight: 500;
+    animation: fadeDown 0.8s 0.3s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 48px;
+    animation: fadeDown 0.8s 0.45s ease both;
+  }
+  .btn-primary {
+    background: var(--orange);
+    color: #fff;
+    padding: 16px 38px;
+    border-radius: 50px;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; border: none; cursor: pointer;
+    box-shadow: 0 8px 30px rgba(249,115,22,0.5);
+    transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(249,115,22,0.6); background: #ea6c0a; }
+  .btn-secondary {
+    background: transparent;
+    color: #fff;
+    padding: 16px 38px;
+    border-radius: 50px;
+    border: 2px solid rgba(255,255,255,0.5);
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; cursor: pointer;
+    transition: border-color 0.18s, background 0.18s, transform 0.18s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: #fff; background: rgba(255,255,255,0.08); transform: translateY(-3px); }
+  .hero-trust {
+    display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+    animation: fadeDown 0.8s 0.6s ease both;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 1px;
+  }
+  .trust-icon { font-size: 1.2rem; }
+  .hero-scroll {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: rgba(255,255,255,0.4); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif;
+    animation: bounce 2s infinite;
+  }
+  .hero-scroll::after { content: ''; width: 1px; height: 40px; background: rgba(255,255,255,0.25); }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: 100px 5%;
+    background: var(--cream);
+    position: relative;
+  }
+  #about::before {
+    content: 'PUNJAB';
+    position: absolute; top: 40px; right: -20px;
+    font-family: 'Playfair Display', serif; font-size: 10rem; font-weight: 900;
+    color: rgba(139,0,0,0.04); pointer-events: none; white-space: nowrap; line-height: 1;
+  }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--orange); font-size: 0.85rem; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: ''; width: 30px; height: 2px; background: var(--orange); }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--charcoal); line-height: 1.15; margin-bottom: 20px;
+  }
+  .section-title span { color: var(--red); }
+  .about-text { color: var(--muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 36px; }
+  .about-highlights { display: flex; flex-direction: column; gap: 16px; }
+  .highlight-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: #fff; border-radius: 14px; padding: 18px 22px;
+    box-shadow: 0 2px 16px rgba(139,0,0,0.07);
+    border-left: 4px solid var(--orange);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .highlight-item:hover { transform: translateX(6px); box-shadow: 0 4px 24px rgba(139,0,0,0.13); }
+  .highlight-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .highlight-text strong { display: block; font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; color: var(--charcoal); margin-bottom: 2px; }
+  .highlight-text span { font-size: 0.88rem; color: var(--muted); }
+  .about-img-wrap { position: relative; }
+  .about-img-main {
+    width: 100%; border-radius: 20px; object-fit: cover; height: 480px;
+    box-shadow: 0 24px 60px rgba(139,0,0,0.2);
+  }
+  .about-img-badge {
+    position: absolute; bottom: -20px; left: -20px;
+    background: var(--red); color: #fff;
+    border-radius: 16px; padding: 20px 24px;
+    box-shadow: 0 12px 30px rgba(139,0,0,0.35);
+    text-align: center;
+  }
+  .about-img-badge .big { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; line-height: 1; }
+  .about-img-badge .small { font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; letter-spacing: 2px; opacity: 0.8; text-transform: uppercase; }
+  .about-img-wrap::after {
+    content: ''; position: absolute; top: -15px; right: -15px;
+    width: 120px; height: 120px;
+    border: 3px solid var(--orange); border-radius: 20px; z-index: -1;
+  }
+
+  /* ── MENU ── */
+  #menu {
+    padding: 100px 5%;
+    background: linear-gradient(180deg, #fff8f0 0%, #fff3e8 100%);
+    position: relative; overflow: hidden;
+  }
+  #menu::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--red), var(--orange), var(--red));
+  }
+  .section-header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+  .section-header .section-label { justify-content: center; }
+  .section-header .section-label::before { display: none; }
+  .section-header .section-label::after { content: ''; width: 30px; height: 2px; background: var(--orange); }
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; max-width: 1200px; margin: 0 auto 48px;
+  }
+  .menu-card {
+    background: #fff; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(139,0,0,0.08);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: default;
+  }
+  .menu-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(139,0,0,0.18); }
+  .menu-img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.4s; display: block; }
+  .menu-card:hover .menu-img { transform: scale(1.06); }
+  .menu-img-wrap { overflow: hidden; position: relative; }
+  .menu-tag {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--orange); color: #fff;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;
+    padding: 4px 12px; border-radius: 50px;
+  }
+  .menu-body { padding: 22px; }
+  .menu-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--charcoal); margin-bottom: 8px; }
+  .menu-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+  .menu-price { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; color: var(--red); letter-spacing: 0.5px; }
+  .center-btn { text-align: center; }
+
+  /* ── WHY ── */
+  #why {
+    padding: 100px 5%;
+    background: var(--charcoal);
+    position: relative; overflow: hidden;
+  }
+  #why::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  #why .section-title { color: #fff; }
+  #why .section-label { color: var(--orange); }
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px; max-width: 1100px; margin: 60px auto 0; }
+  .why-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px; padding: 32px 24px;
+    text-align: center; transition: background 0.25s, border-color 0.25s, transform 0.25s;
+  }
+  .why-card:hover { background: rgba(249,115,22,0.1); border-color: rgba(249,115,22,0.3); transform: translateY(-6px); }
+  .why-icon { font-size: 2.5rem; margin-bottom: 16px; }
+  .why-title { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.5px; color: #fff; margin-bottom: 10px; }
+  .why-desc { font-size: 0.86rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+  /* ── SERVICES ── */
+  #services {
+    padding: 100px 5%;
+    background: var(--cream);
+  }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; max-width: 1000px; margin: 60px auto 48px; }
+  .service-card {
+    border-radius: 20px; padding: 40px 32px; text-align: center;
+    position: relative; overflow: hidden;
+    transition: transform 0.25s;
+  }
+  .service-card:hover { transform: translateY(-8px); }
+  .service-card.dine { background: linear-gradient(135deg, #8B0000, #C0392B); }
+  .service-card.take { background: linear-gradient(135deg, #F97316, #f59e0b); }
+  .service-card.del { background: linear-gradient(135deg, #1F2937, #374151); }
+  .service-card::after {
+    content: ''; position: absolute; bottom: -30px; right: -30px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .service-icon { font-size: 3rem; margin-bottom: 16px; }
+  .service-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .service-desc { font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.7; }
+  .service-badge {
+    display: inline-block; margin-top: 14px;
+    background: rgba(255,255,255,0.15); color: #fff;
+    font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 50px;
+  }
+
+  /* ── REVIEWS ── */
+  #reviews {
+    padding: 100px 5%;
+    background: linear-gradient(180deg, #fff8f0, #fff3e8);
+  }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1100px; margin: 60px auto 0; }
+  .review-card {
+    background: #fff; border-radius: 18px; padding: 28px;
+    box-shadow: 0 4px 20px rgba(139,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .review-card:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(139,0,0,0.12); }
+  .review-card::before {
+    content: '"'; position: absolute; top: 10px; right: 20px;
+    font-family: 'Playfair Display', serif; font-size: 5rem; color: rgba(249,115,22,0.12); line-height: 1;
+  }
+  .review-stars { color: #FBBF24; font-size: 1.1rem; margin-bottom: 14px; letter-spacing: 2px; }
+  .review-text { font-size: 0.95rem; color: var(--muted); line-height: 1.75; margin-bottom: 20px; font-style: italic; }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .review-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.5px; color: var(--charcoal); }
+  .review-date { font-size: 0.78rem; color: var(--muted); }
+
+  /* ── LOCATION ── */
+  #location {
+    padding: 100px 5%;
+    background: var(--charcoal);
+  }
+  #location .section-title { color: #fff; }
+  #location .section-label { color: var(--orange); }
+  .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; max-width: 1100px; margin: 60px auto 0; }
+  .contact-info { display: flex; flex-direction: column; gap: 20px; }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 20px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .contact-item:hover { background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.25); }
+  .contact-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .contact-text strong { display: block; color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .contact-text a, .contact-text span { color: rgba(255,255,255,0.65); font-size: 0.95rem; text-decoration: none; }
+  .contact-text a:hover { color: var(--orange); }
+  .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
+  .hours-item { color: rgba(255,255,255,0.6); font-size: 0.88rem; }
+  .hours-item span { color: var(--orange); }
+  .map-wrap { border-radius: 20px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .map-wrap iframe { width: 100%; height: 360px; border: none; display: block; }
+  .map-btn {
+    display: block; background: var(--orange); color: #fff; text-align: center;
+    padding: 14px; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .map-btn:hover { background: #ea6c0a; }
+
+  /* ── FINAL CTA ── */
+  #cta-final {
+    padding: 120px 5%;
+    background: linear-gradient(135deg, #8B0000 0%, #5a0000 50%, #1a0000 100%);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  #cta-final::before {
+    content: ''; position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=1400&q=60') center/cover;
+    opacity: 0.08;
+  }
+  #cta-final .section-title { color: #fff; position: relative; font-size: clamp(2.5rem, 6vw, 4.5rem); }
+  #cta-final .section-title span { color: var(--orange); }
+  #cta-final p { color: rgba(255,255,255,0.7); font-size: 1.1rem; max-width: 480px; margin: 16px auto 36px; position: relative; }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn-outline {
+    background: transparent; color: #fff;
+    padding: 16px 38px; border-radius: 50px;
+    border: 2px solid rgba(255,255,255,0.4);
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; cursor: pointer;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); transform: translateY(-3px); }
+  .btn-whatsapp {
+    background: #25D366; color: #fff;
+    padding: 16px 38px; border-radius: 50px;
+    border: none;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; cursor: pointer;
+    box-shadow: 0 8px 30px rgba(37,211,102,0.4);
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(37,211,102,0.5); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0d0000;
+    padding: 40px 5%;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 10px;
+  }
+  .footer-logo span { color: var(--orange); }
+  footer p { color: rgba(255,255,255,0.35); font-size: 0.82rem; }
+
+  /* ── FLOATING BUTTONS ── */
+  .float-call {
+    position: fixed; bottom: 80px; right: 20px; z-index: 200;
+    background: var(--red); color: #fff;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 6px 24px rgba(139,0,0,0.5);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: pulse 2.5s infinite;
+  }
+  .float-call:hover { transform: scale(1.1); animation: none; }
+  .float-wa {
+    position: fixed; bottom: 20px; right: 20px; z-index: 200;
+    background: #25D366; color: #fff;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .float-wa:hover { transform: scale(1.1); }
+
+  /* ── STICKY MOBILE BAR ── */
+  .sticky-bar {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+    background: var(--charcoal);
+    padding: 12px 16px;
+    gap: 10px;
+  }
+  .sticky-bar a {
+    flex: 1; text-align: center;
+    padding: 12px; border-radius: 12px;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase;
+    text-decoration: none;
+  }
+  .sticky-bar .s-order { background: var(--orange); color: #fff; }
+  .sticky-bar .s-call { background: var(--red); color: #fff; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 6px 24px rgba(139,0,0,0.5); }
+    50% { box-shadow: 0 6px 36px rgba(139,0,0,0.8), 0 0 0 12px rgba(139,0,0,0.12); }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .about-grid, .location-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-img-wrap { order: -1; }
+    .about-img-wrap::after { display: none; }
+    .about-img-main { height: 320px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .float-call, .float-wa { display: none; }
+    .sticky-bar { display: flex; }
+    body { padding-bottom: 70px; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 14px 5%; }
+    .hero-title { font-size: 2.4rem; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    #about::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    The Punjab<span> House</span>
+    <small>Authentic Punjabi Flavours</small>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#location">Location</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('cta-final').scrollIntoView({behavior:'smooth'})">Order Now</button>
+  <div class="hamburger" onclick="this.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⭐ 4.0 Rating · Loved by Locals</div>
+    <h1 class="hero-title">Craving Authentic<br><span>Punjabi Food?</span></h1>
+    <p class="hero-sub">Delicious, filling meals starting at just ₹200 — right near you in Bengaluru.</p>
+    <div class="hero-btns">
+      <a href="tel:08861898404" class="btn-primary">🍛 Order Now</a>
+      <a href="#menu" class="btn-secondary">View Menu</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><span class="trust-icon">🕐</span> Open Until 11 PM Daily</div>
+      <div class="trust-item"><span class="trust-icon">💰</span> ₹200–400 Per Person</div>
+      <div class="trust-item"><span class="trust-icon">🛵</span> Dine-In & Delivery</div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="reveal-left">
+      <div class="section-label">Who We Are</div>
+      <h2 class="section-title">Your Go-To Spot for<br><span>Punjabi Comfort Food</span></h2>
+      <p class="about-text">Nestled opposite Acharya College Gate, The Punjab House brings the bold, soul-warming flavours of Punjab straight to your plate. We're the neighbourhood favourite for students and locals alike — known for generous portions, real ingredients, and prices that won't hurt your pocket.</p>
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <div class="highlight-icon">🔥</div>
+          <div class="highlight-text">
+            <strong>Freshly Prepared Every Day</strong>
+            <span>Cooked to order, served piping hot — never compromising on taste.</span>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">💚</div>
+          <div class="highlight-text">
+            <strong>Budget-Friendly Pricing</strong>
+            <span>Hearty meals starting at ₹200 — great food doesn't have to be expensive.</span>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">⚡</div>
+          <div class="highlight-text">
+            <strong>Quick Service, Zero Waiting</strong>
+            <span>In a hurry? We get your food out fast so you never miss a beat.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-img-wrap reveal-right">
+      <img class="about-img-main" src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700&q=80" alt="Punjabi food spread" loading="lazy">
+      <div class="about-img-badge">
+        <div class="big">4.0</div>
+        <div class="small">⭐ Google Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-header reveal">
+    <div class="section-label">Signature Dishes</div>
+    <h2 class="section-title">Our Most <span>Loved Dishes</span></h2>
+    <p style="color:var(--muted);font-size:1rem;line-height:1.7;margin-top:12px;">Crowd favourites that keep our customers coming back, dish after dish.</p>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card reveal">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500&q=80" alt="Biryani" loading="lazy">
+        <span class="menu-tag">Best Seller</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Dum Biryani</div>
+        <div class="menu-desc">Slow-cooked, fragrant rice layered with marinated chicken and whole spices — every bite a celebration.</div>
+        <div class="menu-price">Starting ₹180</div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&q=80" alt="Chicken Alfaham" loading="lazy">
+        <span class="menu-tag">Fan Favourite</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Chicken Alfaham</div>
+        <div class="menu-desc">Tender whole chicken grilled to smoky perfection with an aromatic Middle Eastern spice rub.</div>
+        <div class="menu-price">Starting ₹280</div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500&q=80" alt="Chilli Chicken" loading="lazy">
+        <span class="menu-tag">Spicy 🌶️</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Chilli Chicken</div>
+        <div class="menu-desc">Crispy golden chicken tossed in a fiery, tangy sauce with peppers and onions. Perfectly addictive.</div>
+        <div class="menu-price">Starting ₹160</div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=500&q=80" alt="Noodles" loading="lazy">
+        <span class="menu-tag">Quick Bite</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Manchurian Noodles</div>
+        <div class="menu-desc">Wok-tossed hakka noodles with Manchurian balls in a rich Indo-Chinese gravy — comfort in a bowl.</div>
+        <div class="menu-price">Starting ₹130</div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=500&q=80" alt="Tandoori" loading="lazy">
+        <span class="menu-tag">Tandoor Fresh</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Tandoori Specials</div>
+        <div class="menu-desc">Straight from the clay oven — tikkas, kebabs, and seekhs marinated overnight in chef's secret blend.</div>
+        <div class="menu-price">Starting ₹150</div>
+      </div>
+    </div>
+  </div>
+  <div class="center-btn reveal">
+    <a href="tel:08861898404" class="btn-primary">📞 Call to Order Full Menu</a>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section id="why">
+  <div class="section-header reveal" style="max-width:600px;margin:0 auto;">
+    <div class="section-label" style="justify-content:center;">Our Promise</div>
+    <h2 class="section-title">Why Locals <span style="color:var(--orange);">Love Us</span></h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-icon">🌶️</div>
+      <div class="why-title">Authentic Punjabi Taste</div>
+      <div class="why-desc">Real spices, traditional recipes, and bold flavours — just like home cooking.</div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">💰</div>
+      <div class="why-title">Pocket-Friendly Meals</div>
+      <div class="why-desc">Full, satisfying meals starting at ₹200. Eat well without emptying your wallet.</div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">⚡</div>
+      <div class="why-title">Quick Service</div>
+      <div class="why-desc">We respect your time. Fast turnaround whether you're dining in or taking away.</div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">🛵</div>
+      <div class="why-title">Multiple Order Options</div>
+      <div class="why-desc">Dine-in, takeaway, drive-through, or no-contact delivery — your choice.</div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">📍</div>
+      <div class="why-title">Prime Location</div>
+      <div class="why-desc">Right opposite Acharya College Gate — super easy to reach for students and locals.</div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">🕐</div>
+      <div class="why-title">Open Late Every Day</div>
+      <div class="why-desc">Hungry after a long day? We're open until 11 PM, every single day.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <div class="section-label">How to Order</div>
+    <h2 class="section-title">We Serve You, <span>Your Way</span></h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card dine reveal">
+      <div class="service-icon">🪑</div>
+      <div class="service-title">Dine-In</div>
+      <div class="service-desc">Come in, sit down, and enjoy a warm Punjabi meal fresh off the stove. Great for friends and family.</div>
+      <span class="service-badge">Available Daily</span>
+    </div>
+    <div class="service-card take reveal">
+      <div class="service-icon">🛍️</div>
+      <div class="service-title">Takeaway</div>
+      <div class="service-desc">Order at the counter or drive-through and take your meal home without a wait.</div>
+      <span class="service-badge">Drive-Through Ready</span>
+    </div>
+    <div class="service-card del reveal">
+      <div class="service-icon">🛵</div>
+      <div class="service-title">Delivery</div>
+      <div class="service-desc">No-contact delivery right to your door. Stay home, eat well, stay safe.</div>
+      <span class="service-badge">No-Contact Option</span>
+    </div>
+  </div>
+  <div class="center-btn reveal">
+    <a href="tel:08861898404" class="btn-primary">🍛 Order Your Meal Now</a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-header reveal">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">What Our <span>Customers Say</span></h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">The biryani here is absolutely outstanding. Perfectly spiced, generous portions — and all this for under ₹200? Unbeatable value. This is my weekly go-to spot near college.</p>
+      <div class="review-author">
+        <div class="review-avatar">R</div>
+        <div>
+          <div class="review-name">Rahul M.</div>
+          <div class="review-date">College Student · Verified Visit</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Chilli chicken and noodles combo is the best in the area, no question. The staff is friendly and they always get your order out quickly. Highly recommend for quick lunch!</p>
+      <div class="review-author">
+        <div class="review-avatar">P</div>
+        <div>
+          <div class="review-name">Priya K.</div>
+          <div class="review-date">Local Resident · Regular Customer</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">Tried the Chicken Alfaham and tandoori here — both were excellent. The smoky flavour and the tender meat just hit different. Great for a late-night dinner too since they're open till 11.</p>
+      <div class="review-author">
+        <div class="review-avatar">A</div>
+        <div>
+          <div class="review-name">Arjun S.</div>
+          <div class="review-date">Working Professional · Google Review</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">Best affordable North Indian food near Soladevanahalli. The portions are massive and the taste is authentic. My entire group of friends orders from here regularly. Solid 4 stars!</p>
+      <div class="review-author">
+        <div class="review-avatar">S</div>
+        <div>
+          <div class="review-name">Shreya T.</div>
+          <div class="review-date">Student · Zomato Review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="section-header reveal" style="max-width:600px;margin:0 auto;">
+    <div class="section-label">Find Us</div>
+    <h2 class="section-title">Visit Us <span style="color:var(--orange);">Today</span></h2>
+  </div>
+  <div class="location-grid">
+    <div class="contact-info reveal-left">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-text">
+          <strong>Address</strong>
+          <span>Opposite Acharya College Gate, 3, MSPP Layout, Soladevanahalli, Bengaluru, Karnataka 560107</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-text">
+          <strong>Phone</strong>
+          <a href="tel:08861898404">088618 98404</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-text">
+          <strong>Working Hours</strong>
+          <div class="hours-grid">
+            <div class="hours-item">Mon – Sun</div>
+            <div class="hours-item"><span>Open Until 11 PM</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💬</div>
+        <div class="contact-text">
+          <strong>WhatsApp Order</strong>
+          <a href="https://wa.me/918861898404?text=Hi!%20I'd%20like%20to%20place%20an%20order%20from%20The%20Punjab%20House." target="_blank">Message us on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.7!2d77.5!3d13.07!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDA0JzEyLjAiTiA3N8KwMzAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <a href="https://www.google.com/maps/search/The+Punjab+House+Soladevanahalli+Bengaluru" target="_blank" class="map-btn">📍 Get Directions</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta-final">
+  <h2 class="section-title reveal">Hungry <span>Yet?</span></h2>
+  <p class="reveal">Order your favourite Punjabi dishes now and enjoy a meal you'll truly love.</p>
+  <div class="cta-btns reveal">
+    <a href="tel:08861898404" class="btn-primary">📞 Call Now to Order</a>
+    <a href="https://wa.me/918861898404?text=Hi!%20I'd%20like%20to%20place%20an%20order%20from%20The%20Punjab%20House." target="_blank" class="btn-whatsapp">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp Order
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">The Punjab <span>House</span></div>
+  <p>Authentic Punjabi Flavours, Right Around the Corner</p>
+  <p style="margin-top:8px;">Opp. Acharya College Gate, Soladevanahalli, Bengaluru · Open Daily till 11 PM</p>
+</footer>
+
+<!-- FLOATING BUTTONS (desktop) -->
+<a href="tel:08861898404" class="float-call" title="Call Now">📞</a>
+<a href="https://wa.me/918861898404?text=Hi!%20I'd%20like%20to%20place%20an%20order." target="_blank" class="float-wa" title="WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- STICKY MOBILE BAR -->
+<div class="sticky-bar">
+  <a href="#menu" class="s-order">🍛 View Menu</a>
+  <a href="tel:08861898404" class="s-call">📞 Call Now</a>
+</div>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(r => observer.observe(r));
+
+  // Stagger menu cards
+  document.querySelectorAll('.menu-card.reveal').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.1) + 's';
+  });
+  document.querySelectorAll('.why-card.reveal').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.08) + 's';
+  });
+  document.querySelectorAll('.review-card.reveal').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.1) + 's';
+  });
+</script>
+</body>
+</html>
